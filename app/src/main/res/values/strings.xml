@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">Learn Programming</string>
+    <string name="submit">Registration</string>
+    <string name="save">Save</string>
+    <string name="mocktest">Mock Test</string>
+    <string name="mocktestnumber">01</string>
+    <string name="profilemenu">Profile</string>
+    <string name="logoutmenu">Logout</string>
+    <string name="forgetpassword">Forget Password?</string>
+    <string name="accountNotexit">Create New Account</string>
+    <string name="login">Login</string>
+    <string name="select_level">Mock Test 1</string>
+    <string name="nameError">Please write your name here</string>
+    <string name="emailError">Please write your email here</string>
+    <string name="mobileError">Please write your mobile number here</string>
+    <string name="passwordError">Please write your password</string>
+
+    <string-array name="difficulty_levels">
+        <item>Easy</item>
+        <item>Medium</item>
+        <item>Hard</item>
+    </string-array>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
+</resources>
