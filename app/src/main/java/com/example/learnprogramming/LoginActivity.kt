@@ -2,6 +2,7 @@ package com.example.learnprogramming
 
 import android.R.attr.password
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -135,6 +136,7 @@ class LoginActivity : AppCompatActivity() {
                            {
                                val message = loginResponse.message
                                val status = loginResponse.status
+                               val user = loginResponse.user
 
                                Log.d("messageAndstatus", "onResponse: "+message+" "+status)
 
@@ -159,7 +161,7 @@ class LoginActivity : AppCompatActivity() {
                                  }
                              }
                                else
-                             {
+                             {      saveUserDataToSharedPreferences(user)
                                    if (message.equals("login Suceesful")) {
                                        binding.pgBar.visibility = View.GONE
                                        startActivity(
@@ -198,6 +200,17 @@ class LoginActivity : AppCompatActivity() {
         }
 
         }
+    private fun saveUserDataToSharedPreferences(user: User) {
+        val sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        editor.putString("user_name", user.name)
+        editor.putString("user_email", user.email)
+        editor.putString("user_mobile", user.mobileNumber.toString())
+        editor.putString("user_university", user.university)
+        editor.apply()
+
+    }
 }
 
 

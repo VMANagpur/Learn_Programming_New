@@ -1,5 +1,6 @@
 package com.example.learnprogramming
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
@@ -42,6 +43,7 @@ class PersonalDetailsActivity : AppCompatActivity() {
         initActivity()
 
         Log.d("TAG", "onCreate: ")
+        displayUserDataFromSharedPreferences()
     }
     private fun initActivity() {
 
@@ -63,8 +65,8 @@ class PersonalDetailsActivity : AppCompatActivity() {
             binding.etUnivercityName.isEnabled = false
             binding.btnedit.visibility = View.VISIBLE
             binding.btnSave.visibility = View.GONE
-            profileDetails()
 
+            saveUserDataToSharedPreferences()
     }
 
         binding.toolbar.setNavigationOnClickListener {
@@ -72,19 +74,36 @@ class PersonalDetailsActivity : AppCompatActivity() {
                // startActivity(Intent(this, ProfileFragment::class.java))
             }
     }
-    private fun profileDetails(){
 
-        val retrofitService:RetrofitService = RetrofitService()
 
-        val profileApi: PersonalDetailsAPI = retrofitService.retrofit.create(PersonalDetailsAPI::class.java)
+    private fun displayUserDataFromSharedPreferences() {
+        val sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
 
-        val profile: Profile = Profile()
+        // Retrieve user data from SharedPreferences
+        val userName = sharedPreferences.getString("user_name", "")
+        val userEmail = sharedPreferences.getString("user_email", "")
+        val userMobile = sharedPreferences.getString("user_mobile", "")
+        val userUniversity = sharedPreferences.getString("user_university", "")
 
-        profile.email = binding.etEmail.text.toString()
-        profile.name = binding.etName.text.toString()
-        profile.mobileNumber = binding.etMobile.text.toString().toLong()
-        profile.university = binding.etUnivercityName.text.toString()
-
-        val data = profileApi.updateProfile(User())
+        // Display user data in EditText fields
+        binding.etName.setText(userName)
+        binding.etEmail.setText(userEmail)
+        binding.etMobile.setText(userMobile)
+        binding.etUnivercityName.setText(userUniversity)
     }
+
+    private fun saveUserDataToSharedPreferences() {
+        val sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
+        val editor = sharedPreferences.edit()
+
+        // Save updated user data to SharedPreferences
+        editor.putString("user_name", binding.etName.text.toString())
+        editor.putString("user_email", binding.etEmail.text.toString())
+        editor.putString("user_mobile", binding.etMobile.text.toString())
+        editor.putString("user_university", binding.etUnivercityName.text.toString())
+
+        // Commit the changes
+        editor.apply()
+    }
+
 }

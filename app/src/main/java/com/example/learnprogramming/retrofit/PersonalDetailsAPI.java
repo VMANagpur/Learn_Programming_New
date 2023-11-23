@@ -11,7 +11,7 @@ public interface PersonalDetailsAPI {
 
 //    @GET("/profile")
 //    Call<User>getProfile(@Body User user);
-@PUT("/update_personal_details")
+@PUT("/profile")
 Call<User> updateProfile(@Body User user);
 
 //    @PUT("/profile")
