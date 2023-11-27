@@ -140,7 +140,7 @@
             android:layout_width="40dp"
             android:layout_height="30dp"
             app:srcCompat="@drawable/baseline_logout_24"
-            app:tint="#6020D2" />
+            app:tint="#605E5E" />
 
 
         <TextView
@@ -150,7 +150,7 @@
             android:layout_gravity="center"
             android:layout_marginLeft="20dp"
             android:text="Logout"
-            android:textColor="#6020D2"
+            android:textColor="@color/black"
             android:textSize="20sp" />
     </LinearLayout>
 

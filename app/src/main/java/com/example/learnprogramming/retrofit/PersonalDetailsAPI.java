@@ -1,21 +1,16 @@
 package com.example.learnprogramming.retrofit;
 
 import com.example.learnprogramming.model.User;
+import com.example.learnprogramming.model.UserProfile;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.PUT;
+import retrofit2.http.Path;
 
 public interface PersonalDetailsAPI {
 
-//    @GET("/profile")
-//    Call<User>getProfile(@Body User user);
-@PUT("/profile")
-Call<User> updateProfile(@Body User user);
-
-//    @PUT("/profile")
-//    Call<User>putProfile(@Body User user);
-
-
+    @PUT("/profile/{userId}")
+    Call<UserProfile> updateProfile(@Path("userId") Long userId ,@Body UserProfile userProfile);
 }

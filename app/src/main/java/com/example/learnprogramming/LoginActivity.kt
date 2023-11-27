@@ -161,7 +161,9 @@ class LoginActivity : AppCompatActivity() {
                                  }
                              }
                                else
-                             {      saveUserDataToSharedPreferences(user)
+                             {
+                                   val password = binding.edtPassword.text.toString()
+                                   saveUserDataToSharedPreferences(user,password )
                                    if (message.equals("login Suceesful")) {
                                        binding.pgBar.visibility = View.GONE
                                        startActivity(
@@ -200,14 +202,18 @@ class LoginActivity : AppCompatActivity() {
         }
 
         }
-    private fun saveUserDataToSharedPreferences(user: User) {
+    private fun saveUserDataToSharedPreferences(user: User, value: String ) {
         val sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
 
-        editor.putString("user_name", user.name)
+       editor.putString("user_name", user.name)
         editor.putString("user_email", user.email)
         editor.putString("user_mobile", user.mobileNumber.toString())
-        editor.putString("user_university", user.university)
+       editor.putString("user_university", user.university)
+         editor.putLong("userId", user.id)
+        editor.putString("user_password", value.toString())
+
+
         editor.apply()
 
     }

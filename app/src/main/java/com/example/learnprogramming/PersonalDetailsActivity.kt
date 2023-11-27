@@ -1,32 +1,31 @@
 package com.example.learnprogramming
 
+import android.annotation.SuppressLint
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
-import android.telecom.Call
 import android.util.Log
 import android.view.View
 import android.widget.Button
 import android.widget.Toast
 import com.example.learnprogramming.databinding.ActivityPersonalDetailsBinding
-import com.example.learnprogramming.model.Profile
-import com.example.learnprogramming.model.User
+import com.example.learnprogramming.model.UserProfile
+import com.example.learnprogramming.retrofit.CallingApi
 import com.example.learnprogramming.retrofit.PersonalDetailsAPI
 import com.example.learnprogramming.retrofit.RetrofitService
-import com.example.learnprogramming.retrofit.UserApi
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.textfield.TextInputLayout
-import okhttp3.Callback
-import okhttp3.Response
-import retrofit2.create
-import java.util.jar.Attributes.Name
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 @Suppress("DEPRECATION")
 class PersonalDetailsActivity : AppCompatActivity() {
     lateinit var binding: ActivityPersonalDetailsBinding
 
-    private val personalDetailsAPI = RetrofitService().retrofit.create(PersonalDetailsAPI::class.java)
+    private val personalDetailsAPI =
+        RetrofitService().retrofit.create(PersonalDetailsAPI::class.java)
 
 
     private lateinit var tILName: TextInputLayout
@@ -37,7 +36,7 @@ class PersonalDetailsActivity : AppCompatActivity() {
     private lateinit var btnSave: Button
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding =ActivityPersonalDetailsBinding.inflate(layoutInflater)
+        binding = ActivityPersonalDetailsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         initActivity()
@@ -45,16 +44,17 @@ class PersonalDetailsActivity : AppCompatActivity() {
         Log.d("TAG", "onCreate: ")
         displayUserDataFromSharedPreferences()
     }
+
     private fun initActivity() {
 
         binding.btnedit.setOnClickListener {
-         binding.etName.isEnabled =true
-         binding.etEmail.isEnabled = true
-         binding.etMobile.isEnabled = true
-         binding.etUnivercityName.isEnabled = true
+            binding.etName.isEnabled = true
+            binding.etEmail.isEnabled = true
+            binding.etMobile.isEnabled = true
+            binding.etUnivercityName.isEnabled = true
 
-         binding.btnedit.visibility = View.GONE
-         binding.btnSave.visibility = View.VISIBLE
+            binding.btnedit.visibility = View.GONE
+            binding.btnSave.visibility = View.VISIBLE
 
         }
         binding.btnSave.setOnClickListener {
@@ -67,12 +67,12 @@ class PersonalDetailsActivity : AppCompatActivity() {
             binding.btnSave.visibility = View.GONE
 
             saveUserDataToSharedPreferences()
-    }
+        }
 
         binding.toolbar.setNavigationOnClickListener {
-                onBackPressedDispatcher.onBackPressed()
-               // startActivity(Intent(this, ProfileFragment::class.java))
-            }
+            onBackPressedDispatcher.onBackPressed()
+            // startActivity(Intent(this, ProfileFragment::class.java))
+        }
     }
 
 
@@ -92,18 +92,41 @@ class PersonalDetailsActivity : AppCompatActivity() {
         binding.etUnivercityName.setText(userUniversity)
     }
 
-    private fun saveUserDataToSharedPreferences() {
+    private fun saveUserDataToSharedPreferences()
+    {
+
         val sharedPreferences = getSharedPreferences("UserData", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
+        val id = sharedPreferences.getLong("userId",0)
 
-        // Save updated user data to SharedPreferences
-        editor.putString("user_name", binding.etName.text.toString())
-        editor.putString("user_email", binding.etEmail.text.toString())
-        editor.putString("user_mobile", binding.etMobile.text.toString())
-        editor.putString("user_university", binding.etUnivercityName.text.toString())
 
-        // Commit the changes
-        editor.apply()
+        try {
+            val name = binding.etName.text.toString()
+            val email = binding.etEmail.text.toString()
+            val mobile = binding.etMobile.text.toString().toLong()
+            val university = binding.etUnivercityName.text.toString()
+
+            val user = UserProfile(name,email,mobile,university)
+
+            val calling = CallingApi
+            val data = calling.userUpdate.updateProfile(id,user)
+            data.enqueue(object : Callback<UserProfile> {
+                override fun onResponse(call: Call<UserProfile>, response: Response<UserProfile>) {
+                    if (response.isSuccessful) {
+                        Toast.makeText(this@PersonalDetailsActivity,"User data updated successfully", Toast.LENGTH_SHORT).show()
+                        Log.d("response", "onResponse: " + response.body())
+                    }
+                }
+
+                override fun onFailure(call: Call<UserProfile>, t: Throwable) {
+                    Log.d("failed", "onFailure: " + t.toString())
+                }
+
+            })
+        }
+        catch (e:Exception)
+        {
+            Log.d("exception", "saveUserDataToSharedPreferences: "+e.toString())
+        }
     }
 
 }

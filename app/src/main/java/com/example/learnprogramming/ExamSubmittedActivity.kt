@@ -39,9 +39,4 @@ class ExamSubmittedActivity : AppCompatActivity() {
         }
 
     }
-
-
-
-
-
 }
