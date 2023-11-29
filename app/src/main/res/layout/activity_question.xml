@@ -170,12 +170,11 @@
         android:id="@+id/Question"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
-        android:padding="15dp"
-        android:text="what values should come in place of the question mark(?) in the following question ?  5*?=8082/4"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="15dp"
+        android:paddingTop="15dp"
+        android:text="what is c?"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view" />
 
@@ -189,25 +188,25 @@
         app:layout_constraintTop_toBottomOf="@+id/Question">
 
         <RadioButton
-            android:id="@+id/radioButton5"
+            android:id="@+id/option1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="296.5" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
+            android:id="@+id/option2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="5433.6" />
 
         <RadioButton
-            android:id="@+id/radioButton2"
+            android:id="@+id/option3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="1052.5" />
 
         <RadioButton
-            android:id="@+id/radioButton"
+            android:id="@+id/option4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="402.1" />
@@ -217,9 +216,9 @@
         android:id="@+id/btnReset"
         android:layout_width="120dp"
         android:layout_height="55dp"
+        android:backgroundTint="@color/purple_700"
         android:text="Reset"
         android:visibility="visible"
-        android:backgroundTint="@color/purple_700"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -235,20 +234,35 @@
         app:layout_constraintTop_toBottomOf="@+id/btnReset">
 
         <Button
+            android:id="@+id/btnPrevious"
             android:layout_width="120dp"
             android:layout_height="55dp"
             android:layout_marginRight="8dp"
-            android:text="Previous"
-            android:backgroundTint="@color/purple_700" />
+            android:backgroundTint="@color/purple_700"
+            android:text="Previous" />
 
         <Button
             android:id="@+id/btnNext"
             android:layout_width="120dp"
             android:layout_height="55dp"
             android:layout_marginLeft="8dp"
-            android:text="Next"
-            android:backgroundTint="@color/purple_700" />
+            android:backgroundTint="@color/purple_700"
+            android:text="Next" />
 
     </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/progressbar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toTopOf="@+id/btnReset"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/radioGroup"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/view"
+        app:layout_constraintVertical_bias="0.5" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

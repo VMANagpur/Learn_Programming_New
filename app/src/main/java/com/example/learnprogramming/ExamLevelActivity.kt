@@ -16,7 +16,7 @@ class ExamLevelActivity : AppCompatActivity() {
         binding = ActivityExamLevelBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        opennewActivity()
+     //   opennewActivity()
     }
 
     private fun opennewActivity(){

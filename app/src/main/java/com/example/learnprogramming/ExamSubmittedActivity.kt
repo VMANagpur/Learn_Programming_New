@@ -28,15 +28,23 @@ class ExamSubmittedActivity : AppCompatActivity() {
                 .create()
 
             binding.btnSubmit.setOnClickListener {
-                onBackPressedDispatcher.onBackPressed()
+                startActivity(Intent(this,HomeActivity::class.java))
+                finish()
             }
             dialog.show()
 
         }
 
         binding.btnHome.setOnClickListener {
-            onBackPressedDispatcher.onBackPressed()
+          //  onBackPressedDispatcher.onBackPressed()
+            startActivity(Intent(this,HomeActivity::class.java))
+            finish()
         }
 
+    }
+
+    override fun onBackPressed() {
+        startActivity(Intent(this,HomeActivity::class.java))
+        finish()
     }
 }

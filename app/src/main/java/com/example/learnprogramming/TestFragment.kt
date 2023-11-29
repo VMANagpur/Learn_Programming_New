@@ -9,21 +9,19 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.learnprogramming.databinding.FragmentTestBinding
-import com.example.learnprogramming.model.MockTestItem
 import com.example.learnprogramming.model.MockTestItemItem
 import com.example.learnprogramming.retrofit.CallingApi
-import com.example.learnprogramming.retrofit.MockTestApi
-import com.example.learnprogramming.retrofit.RetrofitService
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.create
 
 class TestFragment : Fragment() {
 
     private var binding:FragmentTestBinding?=null
     private  val binding1 get() = binding !!
     private lateinit var adapter:test_adapter
+
+    private var mocktestId = 0;
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -79,7 +77,11 @@ class TestFragment : Fragment() {
             Log.e("FailedInMockTest", "onViewCreated: ",e )
         }
 
+
+
+
     }
+
 
 
 

@@ -1,5 +1,6 @@
 package com.example.learnprogramming
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -40,6 +41,24 @@ class ProfileFragment : Fragment() {
         }
         binding!!.txtPersonalDetails!!.setOnClickListener {
             startActivity(Intent(context, PersonalDetailsActivity::class.java))
+
+        }
+
+        binding!!.txtLogout.setOnClickListener {
+           val sharedPreferences = requireActivity().getSharedPreferences("UserData", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+
+            editor.putBoolean("user_login",false)
+            editor.remove("user_name")
+            editor.remove("user_email")
+            editor.remove("user_mobile")
+            editor.remove("user_university")
+            editor.remove("userId")
+            editor.remove("user_password")
+            editor.apply()
+
+            startActivity(Intent(context,LoginActivity::class.java))
+            requireActivity().finish()
 
         }
     }

@@ -212,6 +212,7 @@ class LoginActivity : AppCompatActivity() {
        editor.putString("user_university", user.university)
          editor.putLong("userId", user.id)
         editor.putString("user_password", value.toString())
+        editor.putBoolean("user_login",true)
 
 
         editor.apply()
